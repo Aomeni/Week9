@@ -21,7 +21,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
+          cache: maven # Đã có Caching cho bài 6
 
       - name: Build with Maven
-        run: mvn clean verify
+        # Lệnh verify sẽ kích hoạt: checkstyle -> test -> jacoco-report -> jacoco-check
+        run: mvn clean verify 
+
+      - name: Upload JaCoCo Report
+        # Bước này thực hiện yêu cầu bài 5
+        if: always() # Đảm bảo báo cáo vẫn được upload kể cả khi test fail (để bạn xem tại sao fail)
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report-${{ matrix.os }} # Phân biệt báo cáo theo từng hệ điều hành
+          path: target/site/jacoco/
