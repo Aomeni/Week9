@@ -15,7 +15,7 @@ public class ShippingCalculator {
             throw new IllegalArgumentException("Weight must be positive");
         }
 
-        if ("EXPRESS".equals(type)) return weight * 5000 + 20000;
+        if ("EXPRESS".equals(type)) return weight*5000+20000;
         if ("STANDARD".equals(type)) return weight * 3000;
 
         logger.error("Unknown type {}", type);
